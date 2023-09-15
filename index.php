@@ -105,7 +105,7 @@ include 'getFornecedoresQuantidade.php';
 				<!-- BEGIN DASHBOARD STATS -->
 				<div class="row">
 					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-						<div class="dashboard-stat blue">
+						<div class="dashboard-stat blue" id="card-cliente">
 							<div class="visual">
 								<i class="fa fa-shopping-cart"></i>
 							</div>
@@ -117,13 +117,13 @@ include 'getFornecedoresQuantidade.php';
 									Clientes
 								</div>
 							</div>
-							<a class="more" href="#">
+							<a class="more" id="btn-cliente" href="#">
 								Visualizar <i class="m-icon-swapright m-icon-white"></i>
 							</a>
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-						<div class="dashboard-stat green">
+						<div class="dashboard-stat green" id="card-usuario">
 							<div class="visual">
 								<i class="fa fa-group"></i>
 							</div>
@@ -135,25 +135,25 @@ include 'getFornecedoresQuantidade.php';
 									Usuários
 								</div>
 							</div>
-							<a class="more" href="#">
+							<a class="more" href="#" id="btn-usuario">
 								Visualizar <i class="m-icon-swapright m-icon-white"></i>
 							</a>
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-						<div class="dashboard-stat purple">
+						<div class="dashboard-stat purple" id="card-fornecedor">
 							<div class="visual">
 								<i class="fa fa-globe"></i>
 							</div>
 							<div class="details">
 								<div class="number">
-								<?= $qtdFornecedores; ?>
+									<?= $qtdFornecedores; ?>
 								</div>
 								<div class="desc">
 									Fornecedores
 								</div>
 							</div>
-							<a class="more" href="#">
+							<a class="more" id="btn-fornecedor" href="#">
 								Visualizar <i class="m-icon-swapright m-icon-white"></i>
 							</a>
 						</div>
@@ -166,7 +166,7 @@ include 'getFornecedoresQuantidade.php';
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN SAMPLE TABLE PORTLET-->
-						<div class="portlet box grey">
+						<div class="portlet box" id="lista">
 							<div class="portlet-title">
 								<div class="caption">
 									<i class="fa fa-folder-open"></i>Tabela Simples
@@ -178,109 +178,7 @@ include 'getFornecedoresQuantidade.php';
 									<a href="javascript:;" class="remove"></a>
 								</div>
 							</div>
-							<div class="portlet-body">
-								<div class="table-responsive">
-									<table class="table table-hover">
-										<thead>
-											<tr>
-												<th>
-													#
-												</th>
-												<th>
-													Nome
-												</th>
-												<th>
-													Sobrenome
-												</th>
-												<th>
-													Usuario
-												</th>
-												<th>
-													Status
-												</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>
-													1
-												</td>
-												<td>
-													Mark
-												</td>
-												<td>
-													Otto
-												</td>
-												<td>
-													makr124
-												</td>
-												<td>
-													<span class="label label-sm label-success">
-														Aprovado
-													</span>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													2
-												</td>
-												<td>
-													Jacob
-												</td>
-												<td>
-													Nilson
-												</td>
-												<td>
-													jac123
-												</td>
-												<td>
-													<span class="label label-sm label-info">
-														Pendente
-													</span>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													3
-												</td>
-												<td>
-													Larry
-												</td>
-												<td>
-													Cooper
-												</td>
-												<td>
-													lar
-												</td>
-												<td>
-													<span class="label label-sm label-warning">
-														Suspenso
-													</span>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													4
-												</td>
-												<td>
-													Sandy
-												</td>
-												<td>
-													Lim
-												</td>
-												<td>
-													sanlim
-												</td>
-												<td>
-													<span class="label label-sm label-danger">
-														Bloqueado
-													</span>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
+							<div class="portlet-body" id="dados-usuarios"></div>
 						</div>
 						<!-- END SAMPLE TABLE PORTLET-->
 					</div>
@@ -315,6 +213,105 @@ include 'getFornecedoresQuantidade.php';
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->
+
+
+
+
+	<!-- SCRIPT PARA POPULAR A TABELA USUARIO -->
+	<script>
+		$(".botaoUsuario").click(function() {
+			$("#lista-clientes").css("display", "none");
+			$("#lista-fornecedores").css("display", "none");
+			$("#lista-usuarios").css("display", "block");
+
+		});
+		$(document).ready(function() {
+			// Solicita os dados completos dos clientes
+			$.ajax({
+				url: 'getUsuarios.php',
+				type: 'POST',
+				dataType: 'json',
+				success: function(data) {
+					// Os dados dos clientes foram obtidos com sucesso, você pode manipulá-los aqui
+					// console.log(data);
+					// Por exemplo, você pode iterar pelos clientes e exibir suas informações
+
+
+					$('#dados-usuarios').append(
+						'<div class="table-responsive ">' +
+						'<table class="table table-hover">' +
+						'<thead >' +
+						'<th>Nome</th>' +
+						'<th>CPF</th>' +
+						'<th>Endereço</th>' +
+						'<th>Telefone</th>' +
+						'<th>Usuario </th>' +
+						'</tr>' +
+						'</thead>' +
+						'<tbody id="lista-usuarios"></tbody>' +
+						'</table>' +
+						'</div>'
+					);
+					data.forEach(function(usuario) {
+						$('#lista-usuarios').append(
+							'<tr>' +
+							'<td>' + usuario.nome + '</td>' +
+							'<td>' + usuario.cpf + '</td>' +
+							'<td>' + usuario.endereco + '</td>' +
+							'<td>' + usuario.telefone + '</td>' +
+							'<td>' + usuario.usuario + '</td>' +
+							'</tr>'
+
+						);
+					});
+				},
+				error: function(error) {
+					console.error(error);
+				}
+			});
+		});
+	</script>
+	<!-- FIM SCRIPT PARA POPULAR A TABELA USUARIO -->
+
+	<script>
+		// SETANDO A COR DE FUNDO DA TABELA INICIANDO COM #4b8df8
+		document.getElementById('lista').style = 'background: #4b8df8';
+
+
+		
+		document.getElementById('btn-cliente').onclick = corTabelaClientes;
+		
+		function corTabelaClientes() {
+			var corCliente = document.getElementById('card-cliente');			
+			var estiloCliente = window.getComputedStyle(corCliente);
+			var corDeFundoCliente = estiloCliente.background;
+			document.getElementById('lista').style = 'background: ' + corDeFundoCliente + ' !important';
+		}
+
+
+		
+		document.getElementById('btn-usuario').onclick = corTabelaUsuarios;
+		
+		function corTabelaUsuarios() {
+			var corUsuario = document.getElementById('card-usuario');
+			var estiloUsuario = window.getComputedStyle(corUsuario);
+			var corDeFundoUsuario = estiloUsuario.background;
+			document.getElementById('lista').style = 'background: ' + corDeFundoUsuario + ' !important';
+		}
+
+		
+		
+		document.getElementById('btn-fornecedor').onclick = corTabelaFornecedores;
+
+		function corTabelaFornecedores() {
+			var corFornecedor = document.getElementById('card-fornecedor');
+			var estiloFornecedor = window.getComputedStyle(corFornecedor);
+			var corDeFundoFornecedor = estiloFornecedor.background;
+			document.getElementById('lista').style = 'background: ' + corDeFundoFornecedor + ' !important';
+		}
+	</script>
+
+
 </body>
 <!-- END BODY -->
 
