@@ -1,3 +1,9 @@
+<?php
+include 'getClientesQuantidade.php';
+include 'getUsuariosQuantidade.php';
+include 'getFornecedoresQuantidade.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <!--<![endif]-->
@@ -31,8 +37,8 @@
 
 <body class="page-header-fixed">
 	<!-- BEGIN HEADER -->
-	
-<?php include 'cabecalho.php';?>
+
+	<?php include 'cabecalho.php'; ?>
 
 	<!-- END HEADER -->
 	<div class="clearfix">
@@ -40,7 +46,7 @@
 	<!-- BEGIN CONTAINER -->
 	<div class="page-container">
 		<!-- BEGIN SIDEBAR -->
-		<?php include 'menu.php';?>
+		<?php include 'menu.php'; ?>
 		<!-- END SIDEBAR -->
 		<!-- BEGIN CONTENT -->
 		<div class="page-content-wrapper">
@@ -105,7 +111,7 @@
 							</div>
 							<div class="details">
 								<div class="number">
-									1349
+									<?= $qtdClientes; ?>
 								</div>
 								<div class="desc">
 									Clientes
@@ -123,7 +129,7 @@
 							</div>
 							<div class="details">
 								<div class="number">
-									549
+									<?= $qtdUsuarios; ?>
 								</div>
 								<div class="desc">
 									Usuários
@@ -141,7 +147,7 @@
 							</div>
 							<div class="details">
 								<div class="number">
-									89
+								<?= $qtdFornecedores; ?>
 								</div>
 								<div class="desc">
 									Fornecedores
@@ -285,7 +291,7 @@
 	</div>
 	<!-- END CONTAINER -->
 	<!-- BEGIN FOOTER -->
-	<?php include 'rodape.php';?>
+	<?php include 'rodape.php'; ?>
 	<!-- END FOOTER -->
 	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 	<script src="assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
