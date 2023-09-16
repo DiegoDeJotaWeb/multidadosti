@@ -183,7 +183,7 @@ class DataRequest
                     'subLink' => 'cadastro-fornecedor.php',
                 ],
                 2 => [
-                    'subMenuNome' => 'Perfil',
+                    'subMenuNome' => 'Perfil de acesso',
                     'subLink' => 'cadastro-perfil.php',
 
                 ],
@@ -213,6 +213,10 @@ class DataRequest
                 2 => [
                     'subMenuNome' => 'Faturamento',
                     'subLink' => 'cliente.php',
+                ],
+                3 => [
+                    'subMenuNome' => 'Produto',
+                    'subLink' => 'produto.php',
                 ],
             ],
 
