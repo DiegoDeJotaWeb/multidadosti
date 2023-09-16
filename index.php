@@ -2,7 +2,6 @@
 include 'getClientesQuantidade.php';
 include 'getUsuariosQuantidade.php';
 include 'getFornecedoresQuantidade.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -166,10 +165,11 @@ include 'getFornecedoresQuantidade.php';
 				<div class="row">
 					<div class="col-md-12">
 						<!-- BEGIN SAMPLE TABLE PORTLET-->
-						<div class="portlet box" id="lista">
-							<div class="portlet-title">
+						<div class="portlet box">
+							<div class="portlet-title" id="lista">
 								<div class="caption">
-									<i class="fa fa-folder-open"></i>Tabela Simples
+									<i class="fa fa-folder-open"></i>
+									<span id="nome-tabela">Tabela Simples</span>
 								</div>
 								<div class="tools">
 									<a href="javascript:;" class="collapse"></a>
@@ -178,7 +178,9 @@ include 'getFornecedoresQuantidade.php';
 									<a href="javascript:;" class="remove"></a>
 								</div>
 							</div>
+							<div class="portlet-body" id="dados-clientes"></div>
 							<div class="portlet-body" id="dados-usuarios"></div>
+							<div class="portlet-body" id="dados-fornecedores"></div>
 						</div>
 						<!-- END SAMPLE TABLE PORTLET-->
 					</div>
@@ -213,104 +215,13 @@ include 'getFornecedoresQuantidade.php';
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->
+	
 
+	<!-- SCRIPT CUSTON -->
+	<script src="assets/scripts/script-custon.js"></script>
+	<!-- END SCRIPT CUSTON -->
 
-
-
-	<!-- SCRIPT PARA POPULAR A TABELA USUARIO -->
-	<script>
-		$(".botaoUsuario").click(function() {
-			$("#lista-clientes").css("display", "none");
-			$("#lista-fornecedores").css("display", "none");
-			$("#lista-usuarios").css("display", "block");
-
-		});
-		$(document).ready(function() {
-			// Solicita os dados completos dos clientes
-			$.ajax({
-				url: 'getUsuarios.php',
-				type: 'POST',
-				dataType: 'json',
-				success: function(data) {
-					// Os dados dos clientes foram obtidos com sucesso, você pode manipulá-los aqui
-					// console.log(data);
-					// Por exemplo, você pode iterar pelos clientes e exibir suas informações
-
-
-					$('#dados-usuarios').append(
-						'<div class="table-responsive ">' +
-						'<table class="table table-hover">' +
-						'<thead >' +
-						'<th>Nome</th>' +
-						'<th>CPF</th>' +
-						'<th>Endereço</th>' +
-						'<th>Telefone</th>' +
-						'<th>Usuario </th>' +
-						'</tr>' +
-						'</thead>' +
-						'<tbody id="lista-usuarios"></tbody>' +
-						'</table>' +
-						'</div>'
-					);
-					data.forEach(function(usuario) {
-						$('#lista-usuarios').append(
-							'<tr>' +
-							'<td>' + usuario.nome + '</td>' +
-							'<td>' + usuario.cpf + '</td>' +
-							'<td>' + usuario.endereco + '</td>' +
-							'<td>' + usuario.telefone + '</td>' +
-							'<td>' + usuario.usuario + '</td>' +
-							'</tr>'
-
-						);
-					});
-				},
-				error: function(error) {
-					console.error(error);
-				}
-			});
-		});
-	</script>
-	<!-- FIM SCRIPT PARA POPULAR A TABELA USUARIO -->
-
-	<script>
-		// SETANDO A COR DE FUNDO DA TABELA INICIANDO COM #4b8df8
-		document.getElementById('lista').style = 'background: #4b8df8';
-
-
-		
-		document.getElementById('btn-cliente').onclick = corTabelaClientes;
-		
-		function corTabelaClientes() {
-			var corCliente = document.getElementById('card-cliente');			
-			var estiloCliente = window.getComputedStyle(corCliente);
-			var corDeFundoCliente = estiloCliente.background;
-			document.getElementById('lista').style = 'background: ' + corDeFundoCliente + ' !important';
-		}
-
-
-		
-		document.getElementById('btn-usuario').onclick = corTabelaUsuarios;
-		
-		function corTabelaUsuarios() {
-			var corUsuario = document.getElementById('card-usuario');
-			var estiloUsuario = window.getComputedStyle(corUsuario);
-			var corDeFundoUsuario = estiloUsuario.background;
-			document.getElementById('lista').style = 'background: ' + corDeFundoUsuario + ' !important';
-		}
-
-		
-		
-		document.getElementById('btn-fornecedor').onclick = corTabelaFornecedores;
-
-		function corTabelaFornecedores() {
-			var corFornecedor = document.getElementById('card-fornecedor');
-			var estiloFornecedor = window.getComputedStyle(corFornecedor);
-			var corDeFundoFornecedor = estiloFornecedor.background;
-			document.getElementById('lista').style = 'background: ' + corDeFundoFornecedor + ' !important';
-		}
-	</script>
-
+	
 
 </body>
 <!-- END BODY -->

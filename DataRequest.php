@@ -1,6 +1,7 @@
 <?php
 
-class DataRequest {
+class DataRequest
+{
 
     private $DadosClientes = [
         0 => [
@@ -111,26 +112,29 @@ class DataRequest {
         ]
     ];
 
+
     /**
      * Função que retorna os dados dos clientes ou a quantidade de registros
      * @param string recebe 'c' ou vazio
      * @return array||String
      */
-    public function dadosClientes($param = '') {
-        if($param === 'c') {
+    public function dadosClientes($param = '')
+    {
+        if ($param === 'c') {
             return count($this->DadosClientes);
         } else {
             return $this->DadosClientes;
         }
     }
-    
+
     /**
      * Função que retorna os dados dos fornecedores ou a quantidade de registros
      * @param string recebe 'c' ou vazio
      * @return array||String
      */
-    public function dadosFornecedores($param = '') {
-        if($param === 'c') {
+    public function dadosFornecedores($param = '')
+    {
+        if ($param === 'c') {
             return count($this->DadosFornecedores);
         } else {
             return $this->DadosFornecedores;
@@ -142,11 +146,92 @@ class DataRequest {
      * @param string recebe 'c' ou vazio
      * @return array||String
      */
-    public function dadosUsuarios($param = '') {
-        if($param === 'c') {
+    public function dadosUsuarios($param = '')
+    {
+        if ($param === 'c') {
             return count($this->DadosUsuarios);
         } else {
             return $this->DadosUsuarios;
         }
+    }
+
+
+
+
+
+
+
+
+    private $menu = [
+        0 => [
+            'menuNome' => 'Dashboard',
+            'start' => 'start',
+            'active' => 'active',
+            'icon' => 'fa fa-home',
+            'selected' => 'selected',
+            'href' => 'index.php',
+        ],
+        1 => [
+            'menuNome' => 'Cadastro',
+            'subMenu' => [
+                0 => [
+                    'subMenuNome' => 'Cliente',
+                    'subLink' => 'cadastro-cliente.php',
+                ],
+                1 => [
+                    'subMenuNome' => 'Fornecedor',
+                    'subLink' => 'cadastro-fornecedor.php',
+                ],
+                2 => [
+                    'subMenuNome' => 'Perfil',
+                    'subLink' => 'cadastro-perfil.php',
+
+                ],
+                3 => [
+                    'subMenuNome' => 'Produto',
+                    'subLink' => 'cadastro-produto.php',
+                ],
+
+                4 => [
+                    'subMenuNome' => 'Usuário',
+                    'subLink' => 'cadastro-usuario.php',
+                ]
+            ],
+            'start' => '',
+            'active' => '',
+            'icon' => 'fa fa-file-text',
+            'selected' => 'arrow',
+            'href' => 'javascript:;',
+        ],
+        2 => [
+            'menuNome' => 'Relatório',
+            'subMenu' => [
+                0 => [
+                    'subMenuNome' => 'Cliente',
+                    'subLink' => 'cliente.php',
+                ],
+                2 => [
+                    'subMenuNome' => 'Faturamento',
+                    'subLink' => 'cliente.php',
+                ],
+            ],
+
+            'start' => '',
+            'active' => '',
+            'icon' => 'fa fa-bar-chart-o',
+            'selected' => 'arrow',
+            'href' => 'javascript:;',
+        ],
+    ];
+
+
+    /**
+     * Função que retorna os dados do menu
+     * @param string 
+     * @return array||String
+     */
+    public function dadosMenu()
+    {
+        return $this->menu;
     }
 }

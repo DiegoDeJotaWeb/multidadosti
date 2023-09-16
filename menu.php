@@ -1,3 +1,11 @@
+<?php
+
+require_once('DataRequest.php');
+
+$menu = new DataRequest();
+
+$dadosMenu = $menu->dadosMenu();
+?>
 <div class="page-sidebar-wrapper">
     <div class="page-sidebar navbar-collapse collapse">
         <!-- BEGIN SIDEBAR MENU -->
@@ -21,57 +29,28 @@
                 </form>
                 <!-- END RESPONSIVE QUICK SEARCH FORM -->
             </li>
-            <li class="start active ">
-                <a href="index.html">
-                    <i class="fa fa-home"></i>
-                    <span class="title">
-                        Dashboard
-                    </span>
-                    <span class="selected">
-                    </span>
-                </a>
-            </li>
-            <!--Cliente-->
-            <li class="">
-                <a href="javascript:;">
-                    <i class="fa fa-file-text"></i>
-                    <span class="title">
-                        Cadastro
-                    </span>
-                    <span class="arrow ">
-                    </span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="#">Cliente</a>
-                    </li>
-                    <li>
-                        <a href="#">Fornecedor</a>
-                    </li>
-                    <li>
-                        <a href="#">Usuário</a>
-                    </li>
-                </ul>
-            </li>
-            <!--Relatorio-->
-            <li class="">
-                <a href="javascript:;">
-                    <i class="fa fa-bar-chart-o"></i>
-                    <span class="title">
-                        Relatório
-                    </span>
-                    <span class="arrow ">
-                    </span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="#">Cliente</a>
-                    </li>
-                    <li>
-                        <a href="#">Faturamento</a>
-                    </li>
-                </ul>
-            </li>
+            <?php foreach ($dadosMenu as $item) { ?>
+
+                <li class="<?php echo $item['start'] . " " . $item['active']; ?>">
+                    <a href="<?= $item['href'] ?>">
+                        <i class="<?= $item['icon'] ?>"></i>
+                        <span class="title">
+                            <?= $item['menuNome']; ?>
+                        </span>
+                        <span class="<?= $item['selected']; ?>">
+                        </span>
+                    </a>
+                    <?php if (isset($item['subMenu'])) { ?>
+                        <ul class="sub-menu">
+                            <?php foreach ($item['subMenu'] as $subItem) { ?>
+                                <li>
+                                    <a href="<?= $subItem['subLink']; ?>"><?= $subItem['subMenuNome']; ?></a>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } ?>
+                </li>
+            <?php } ?>
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>
